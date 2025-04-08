@@ -1,3 +1,4 @@
+/* styles.css */
 *, *::before, *::after {
   box-sizing: border-box;
 }
@@ -5,6 +6,14 @@
 body {
   background-color: #F3F3F3;
   margin: 0;
+}
+
+/* Editor Container Styles */
+.editor-container {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
 }
 
 .container .ql-editor {
@@ -33,33 +42,29 @@ body {
   box-shadow: 0 0 5px 0 rgba(0, 0, 0, .5);
 }
 
-/* AI suggestion button styling */
-.ql-snow .ql-toolbar button.ql-ai-suggest,
-.ql-snow .ql-toolbar button.ql-ai-suggest-button {
-  padding: 3px 8px;
+/* AI Components */
+.ai-suggestion {
+  position: fixed;
+  bottom: 20px;
+  left: 20px;
+  background-color: #f0f8ff;
+  border: 1px solid #add8e6;
   border-radius: 4px;
-  background: #2196f3;
-  color: white;
-  font-weight: bold;
-  margin-left: 8px;
+  padding: 10px;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+  max-width: 80%;
+  z-index: 1000;
 }
 
-.ql-snow .ql-toolbar button.ql-ai-suggest:hover,
-.ql-snow .ql-toolbar button.ql-ai-suggest-button:hover {
-  background: #1976d2;
+.ai-suggestion .suggestion-text {
+  margin-bottom: 10px;
 }
 
-/* Style for AI generated text */
-.ai-suggested-text {
-  background-color: #e6f7ff;
-  transition: background-color 1s ease;
+.ai-suggestion .suggestion-actions {
+  display: flex;
+  gap: 10px;
 }
 
-.ai-suggested-text:hover {
-  background-color: #bae7ff;
-}
-
-/* Loading indicator */
 .ai-loading-indicator {
   position: fixed;
   bottom: 20px;
@@ -73,27 +78,64 @@ body {
   animation: pulse 1.5s infinite;
 }
 
-/* Connection error styling */
-.connection-error {
-  color: red;
-  padding: 20px;
-  text-align: center;
-  background-color: #ffebee;
+/* Connection Status */
+.connection-indicator {
+  padding: 5px 10px;
+  margin: 5px 0;
   border-radius: 4px;
-  margin-bottom: 15px;
+  font-size: 14px;
+  text-align: center;
 }
 
-/* Loading animation */
+.connection-indicator.connected {
+  background-color: #e6f4ea;
+  color: #137333;
+}
+
+.connection-indicator.disconnected {
+  background-color: #fce8e6;
+  color: #c5221f;
+}
+
+/* Buttons */
+.ql-snow .ql-toolbar button.ql-ai-suggest {
+  padding: 3px 8px;
+  border-radius: 4px;
+  background: #2196f3;
+  color: white;
+  font-weight: bold;
+  margin-left: 8px;
+}
+
+.ql-snow .ql-toolbar button.ql-ai-suggest:hover {
+  background: #1976d2;
+}
+
+.suggestion-actions button {
+  padding: 5px 10px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.suggestion-actions button:first-child {
+  background-color: #4285f4;
+  color: white;
+}
+
+.suggestion-actions button:last-child {
+  background-color: #f1f3f4;
+  color: #5f6368;
+}
+
+/* Animations */
 @keyframes pulse {
   0% { opacity: 0.6; }
   50% { opacity: 1; }
   100% { opacity: 0.6; }
 }
 
-@page {
-  margin: 1in;
-}
-
+/* Print Styles */
 @media print {
   body {
     background: none;
@@ -108,12 +150,9 @@ body {
     align-self: flex-start;
   }
 
-  .container .ql-toolbar.ql-snow {
-    display: none;
-  }
-  
+  .container .ql-toolbar.ql-snow,
   .ai-loading-indicator,
-  .connection-error {
+  .ai-suggestion {
     display: none;
   }
 }
