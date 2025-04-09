@@ -27,21 +27,6 @@ app.get('/api/health', (req, res) => {
   res.json({ status: 'ok', message: 'Server is running' });
 });
 
-// Test route for Gemini API
-app.get('/api/test-gemini', async (req, res) => {
-  try {
-    const suggestion = await getAiSuggestion("Please fix me I am really tired");
-    res.json({ success: true, suggestion });
-  } catch (error) {
-    console.error("Test Gemini API error:", error);
-    res.status(500).json({ 
-      success: false, 
-      error: error.message,
-      details: error.response?.data || 'No additional details'
-    });
-  }
-});
-
 mongoose.connect(process.env.MONGO_URI, {
   useNewUrlParser: true,
   useUnifiedTopology: true,
@@ -179,7 +164,7 @@ async function getAiSuggestionAlternative(text) {
     throw error;
   }
 }
-
+//socket conncetion
 io.on("connection", socket => {
   console.log("A user connected:", socket.id);
 
@@ -219,7 +204,7 @@ io.on("connection", socket => {
     }
   });
 });
-
+//Document Helper
 async function findOrCreateDocument(id) {
   if (id == null) return null;
   
